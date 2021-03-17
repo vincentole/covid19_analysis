@@ -9,4 +9,4 @@ navbar:
     href: eda_covid19.html
 output:
   html_document:
-    theme:
+    theme: cosmo
