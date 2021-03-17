@@ -1,12 +1,12 @@
-name: "Covid 19 Analysis"
-output_dir: "."
+name: "Covid-19 Analysis"
+output_dir: "docs"
 navbar:
-  title: "Covid 19 Analysis"
+  title: "Covid-19 Analysis"
   left:
   - text: "Home"
-   href: index.html
+    href: index.html
   - text: "EDA"
-   href: eda_covid19.html
+    href: eda_covid19.html
 output:
   html_document:
-  theme:
+    theme:
