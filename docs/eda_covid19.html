@@ -303,66 +303,66 @@ library(kableExtra)</code></pre>
   ) %&gt;%
   ungroup()
 
-glimpse(df)</code></pre>
+glimpse(df, width = 50)</code></pre>
 <pre><code>## Rows: 87,371
 ## Columns: 50
-## $ iso3c                   [3m[38;5;246m&lt;chr&gt;[39m[23m &quot;ABW&quot;, &quot;ABW&quot;, &quot;ABW&quot;, &quot;ABW&quot;, &quot;ABW&quot;, &quot;ABW&quot;, &quot;ABW&quot;, &quot;ABW&quot;, &quot;ABW&quot;, &quot;ABW&quot;, &quot;ABW&quot;, &quot;ABW&quot;, &quot;ABW&quot;, &quot;ABW&quot;, &quot;ABW&quot;, &quot;ABW&quot;, &quot;ABW&quot;, ~
-## $ country                 [3m[38;5;246m&lt;chr&gt;[39m[23m &quot;Aruba&quot;, &quot;Aruba&quot;, &quot;Aruba&quot;, &quot;Aruba&quot;, &quot;Aruba&quot;, &quot;Aruba&quot;, &quot;Aruba&quot;, &quot;Aruba&quot;, &quot;Aruba&quot;, &quot;Aruba&quot;, &quot;Aruba&quot;, &quot;Aruba&quot;, &quot;Aruba&quot;, &quot;A~
-## $ date                    [3m[38;5;246m&lt;date&gt;[39m[23m 2020-03-13, 2020-03-14, 2020-03-15, 2020-03-16, 2020-03-17, 2020-03-18, 2020-03-19, 2020-03-20, 2020-03-21, 2020-03-22~
-## $ confirmed               [3m[38;5;246m&lt;dbl&gt;[39m[23m NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,~
-## $ deaths                  [3m[38;5;246m&lt;dbl&gt;[39m[23m NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,~
-## $ recovered               [3m[38;5;246m&lt;dbl&gt;[39m[23m NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,~
-## $ ecdc_cases              [3m[38;5;246m&lt;dbl&gt;[39m[23m 2, 2, 2, 2, 2, 2, 2, 4, 4, 4, 4, 12, 17, 19, 28, 28, 28, 50, 50, 55, 55, 60, 62, 64, 64, 71, 74, 77, 82, 86, 92, 92, 92~
-## $ ecdc_deaths             [3m[38;5;246m&lt;dbl&gt;[39m[23m 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 2, 2, 2, 2,~
-## $ total_tests             [3m[38;5;246m&lt;dbl&gt;[39m[23m NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,~
-## $ tests_units             [3m[38;5;246m&lt;chr&gt;[39m[23m NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,~
-## $ positive_rate           [3m[38;5;246m&lt;dbl&gt;[39m[23m NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,~
-## $ hosp_patients           [3m[38;5;246m&lt;dbl&gt;[39m[23m NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,~
-## $ icu_patients            [3m[38;5;246m&lt;dbl&gt;[39m[23m NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,~
-## $ total_vaccinations      [3m[38;5;246m&lt;dbl&gt;[39m[23m NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,~
-## $ soc_dist                [3m[38;5;246m&lt;dbl&gt;[39m[23m NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,~
-## $ mov_rest                [3m[38;5;246m&lt;dbl&gt;[39m[23m NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,~
-## $ pub_health              [3m[38;5;246m&lt;dbl&gt;[39m[23m NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,~
-## $ gov_soc_econ            [3m[38;5;246m&lt;dbl&gt;[39m[23m NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,~
-## $ lockdown                [3m[38;5;246m&lt;dbl&gt;[39m[23m NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,~
-## $ apple_mtr_driving       [3m[38;5;246m&lt;dbl&gt;[39m[23m NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,~
-## $ apple_mtr_walking       [3m[38;5;246m&lt;dbl&gt;[39m[23m NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,~
-## $ apple_mtr_transit       [3m[38;5;246m&lt;dbl&gt;[39m[23m NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,~
-## $ gcmr_place_id           [3m[38;5;246m&lt;chr&gt;[39m[23m &quot;ChIJ23da4s84hY4RL4yBiT6KavE&quot;, &quot;ChIJ23da4s84hY4RL4yBiT6KavE&quot;, &quot;ChIJ23da4s84hY4RL4yBiT6KavE&quot;, &quot;ChIJ23da4s84hY4RL4yBiT6Ka~
-## $ gcmr_retail_recreation  [3m[38;5;246m&lt;dbl&gt;[39m[23m -10, -23, -28, -28, -38, -65, -52, -53, -62, -70, -53, -55, -57, -57, -50, -49, -88, -74, -71, -70, -70, -69, -71, -76,~
-## $ gcmr_grocery_pharmacy   [3m[38;5;246m&lt;dbl&gt;[39m[23m 40, 15, -13, 1, 8, -59, -5, -7, -19, -36, -19, -21, -20, -15, -3, -3, -66, -43, -38, -36, -36, -31, -32, -50, -31, -29,~
-## $ gcmr_parks              [3m[38;5;246m&lt;dbl&gt;[39m[23m -4, -7, -6, -5, -18, -24, -41, -41, -52, -52, -48, -49, -56, -54, -50, -50, -80, -63, -61, -62, -59, -55, -57, -51, -47~
-## $ gcmr_transit_stations   [3m[38;5;246m&lt;dbl&gt;[39m[23m -5, -19, -18, -18, -27, -49, -40, -45, -54, -62, -60, -57, -60, -61, -55, -60, -88, -77, -73, -71, -72, -72, -78, -77, ~
-## $ gcmr_workplaces         [3m[38;5;246m&lt;dbl&gt;[39m[23m 3, -3, -5, -21, -29, -74, -40, -41, -40, -46, -48, -51, -53, -55, -52, -51, -72, -71, -70, -69, -69, -66, -64, -64, -66~
-## $ gcmr_residential        [3m[38;5;246m&lt;dbl&gt;[39m[23m 1, 7, 6, 12, 15, 32, 21, 22, 21, NA, 24, 26, 27, 27, 25, 20, NA, 35, 34, 34, 35, 34, NA, NA, 32, 31, 31, 30, NA, NA, NA~
-## $ gtrends_score           [3m[38;5;246m&lt;dbl&gt;[39m[23m NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,~
-## $ gtrends_country_score   [3m[38;5;246m&lt;int&gt;[39m[23m NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,~
-## $ region                  [3m[38;5;246m&lt;chr&gt;[39m[23m &quot;Latin America &amp; Caribbean &quot;, &quot;Latin America &amp; Caribbean &quot;, &quot;Latin America &amp; Caribbean &quot;, &quot;Latin America &amp; Caribbean &quot;,~
-## $ income                  [3m[38;5;246m&lt;chr&gt;[39m[23m &quot;High income&quot;, &quot;High income&quot;, &quot;High income&quot;, &quot;High income&quot;, &quot;High income&quot;, &quot;High income&quot;, &quot;High income&quot;, &quot;High income&quot;,~
-## $ population              [3m[38;5;246m&lt;dbl&gt;[39m[23m 106314, 106314, 106314, 106314, 106314, 106314, 106314, 106314, 106314, 106314, 106314, 106314, 106314, 106314, 106314,~
-## $ land_area_skm           [3m[38;5;246m&lt;dbl&gt;[39m[23m 180, 180, 180, 180, 180, 180, 180, 180, 180, 180, 180, 180, 180, 180, 180, 180, 180, 180, 180, 180, 180, 180, 180, 180,~
-## $ pop_density             [3m[38;5;246m&lt;dbl&gt;[39m[23m 588.0278, 588.0278, 588.0278, 588.0278, 588.0278, 588.0278, 588.0278, 588.0278, 588.0278, 588.0278, 588.0278, 588.0278,~
-## $ pop_largest_city        [3m[38;5;246m&lt;dbl&gt;[39m[23m NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,~
-## $ life_expectancy         [3m[38;5;246m&lt;dbl&gt;[39m[23m 76.152, 76.152, 76.152, 76.152, 76.152, 76.152, 76.152, 76.152, 76.152, 76.152, 76.152, 76.152, 76.152, 76.152, 76.152,~
-## $ gdp_capita              [3m[38;5;246m&lt;dbl&gt;[39m[23m 26630.21, 26630.21, 26630.21, 26630.21, 26630.21, 26630.21, 26630.21, 26630.21, 26630.21, 26630.21, 26630.21, 26630.21,~
-## $ timestamp               [3m[38;5;246m&lt;dttm&gt;[39m[23m 2021-03-18 04:09:51, 2021-03-18 04:09:51, 2021-03-18 04:09:51, 2021-03-18 04:09:51, 2021-03-18 04:09:51, 2021-03-18 04~
-## $ new_confirmed           [3m[38;5;246m&lt;dbl&gt;[39m[23m NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,~
-## $ new_confirmed_pc        [3m[38;5;246m&lt;dbl&gt;[39m[23m NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,~
-## $ confirmed_pc            [3m[38;5;246m&lt;dbl&gt;[39m[23m NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,~
-## $ new_deaths              [3m[38;5;246m&lt;dbl&gt;[39m[23m NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,~
-## $ new_deaths_pc           [3m[38;5;246m&lt;dbl&gt;[39m[23m NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,~
-## $ deaths_pc               [3m[38;5;246m&lt;dbl&gt;[39m[23m NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,~
-## $ ave_7d_new_confirmed    [3m[38;5;246m&lt;dbl&gt;[39m[23m NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,~
-## $ ave_7d_new_deaths       [3m[38;5;246m&lt;dbl&gt;[39m[23m NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,~
-## $ ave_7d_new_confirmed_pc [3m[38;5;246m&lt;dbl&gt;[39m[23m NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,~
-## $ ave_7d_new_deaths_pc    [3m[38;5;246m&lt;dbl&gt;[39m[23m NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,~</code></pre>
+## $ iso3c                   [3m[38;5;246m&lt;chr&gt;[39m[23m &quot;ABW&quot;, &quot;ABW&quot;, &quot;A~
+## $ country                 [3m[38;5;246m&lt;chr&gt;[39m[23m &quot;Aruba&quot;, &quot;Aruba&quot;~
+## $ date                    [3m[38;5;246m&lt;date&gt;[39m[23m 2020-03-13, 202~
+## $ confirmed               [3m[38;5;246m&lt;dbl&gt;[39m[23m NA, NA, NA, NA, ~
+## $ deaths                  [3m[38;5;246m&lt;dbl&gt;[39m[23m NA, NA, NA, NA, ~
+## $ recovered               [3m[38;5;246m&lt;dbl&gt;[39m[23m NA, NA, NA, NA, ~
+## $ ecdc_cases              [3m[38;5;246m&lt;dbl&gt;[39m[23m 2, 2, 2, 2, 2, 2~
+## $ ecdc_deaths             [3m[38;5;246m&lt;dbl&gt;[39m[23m 0, 0, 0, 0, 0, 0~
+## $ total_tests             [3m[38;5;246m&lt;dbl&gt;[39m[23m NA, NA, NA, NA, ~
+## $ tests_units             [3m[38;5;246m&lt;chr&gt;[39m[23m NA, NA, NA, NA, ~
+## $ positive_rate           [3m[38;5;246m&lt;dbl&gt;[39m[23m NA, NA, NA, NA, ~
+## $ hosp_patients           [3m[38;5;246m&lt;dbl&gt;[39m[23m NA, NA, NA, NA, ~
+## $ icu_patients            [3m[38;5;246m&lt;dbl&gt;[39m[23m NA, NA, NA, NA, ~
+## $ total_vaccinations      [3m[38;5;246m&lt;dbl&gt;[39m[23m NA, NA, NA, NA, ~
+## $ soc_dist                [3m[38;5;246m&lt;dbl&gt;[39m[23m NA, NA, NA, NA, ~
+## $ mov_rest                [3m[38;5;246m&lt;dbl&gt;[39m[23m NA, NA, NA, NA, ~
+## $ pub_health              [3m[38;5;246m&lt;dbl&gt;[39m[23m NA, NA, NA, NA, ~
+## $ gov_soc_econ            [3m[38;5;246m&lt;dbl&gt;[39m[23m NA, NA, NA, NA, ~
+## $ lockdown                [3m[38;5;246m&lt;dbl&gt;[39m[23m NA, NA, NA, NA, ~
+## $ apple_mtr_driving       [3m[38;5;246m&lt;dbl&gt;[39m[23m NA, NA, NA, NA, ~
+## $ apple_mtr_walking       [3m[38;5;246m&lt;dbl&gt;[39m[23m NA, NA, NA, NA, ~
+## $ apple_mtr_transit       [3m[38;5;246m&lt;dbl&gt;[39m[23m NA, NA, NA, NA, ~
+## $ gcmr_place_id           [3m[38;5;246m&lt;chr&gt;[39m[23m &quot;ChIJ23da4s84hY4~
+## $ gcmr_retail_recreation  [3m[38;5;246m&lt;dbl&gt;[39m[23m -10, -23, -28, -~
+## $ gcmr_grocery_pharmacy   [3m[38;5;246m&lt;dbl&gt;[39m[23m 40, 15, -13, 1, ~
+## $ gcmr_parks              [3m[38;5;246m&lt;dbl&gt;[39m[23m -4, -7, -6, -5, ~
+## $ gcmr_transit_stations   [3m[38;5;246m&lt;dbl&gt;[39m[23m -5, -19, -18, -1~
+## $ gcmr_workplaces         [3m[38;5;246m&lt;dbl&gt;[39m[23m 3, -3, -5, -21, ~
+## $ gcmr_residential        [3m[38;5;246m&lt;dbl&gt;[39m[23m 1, 7, 6, 12, 15,~
+## $ gtrends_score           [3m[38;5;246m&lt;dbl&gt;[39m[23m NA, NA, NA, NA, ~
+## $ gtrends_country_score   [3m[38;5;246m&lt;int&gt;[39m[23m NA, NA, NA, NA, ~
+## $ region                  [3m[38;5;246m&lt;chr&gt;[39m[23m &quot;Latin America &amp;~
+## $ income                  [3m[38;5;246m&lt;chr&gt;[39m[23m &quot;High income&quot;, &quot;~
+## $ population              [3m[38;5;246m&lt;dbl&gt;[39m[23m 106314, 106314, ~
+## $ land_area_skm           [3m[38;5;246m&lt;dbl&gt;[39m[23m 180, 180, 180, 1~
+## $ pop_density             [3m[38;5;246m&lt;dbl&gt;[39m[23m 588.0278, 588.02~
+## $ pop_largest_city        [3m[38;5;246m&lt;dbl&gt;[39m[23m NA, NA, NA, NA, ~
+## $ life_expectancy         [3m[38;5;246m&lt;dbl&gt;[39m[23m 76.152, 76.152, ~
+## $ gdp_capita              [3m[38;5;246m&lt;dbl&gt;[39m[23m 26630.21, 26630.~
+## $ timestamp               [3m[38;5;246m&lt;dttm&gt;[39m[23m 2021-03-18 04:0~
+## $ new_confirmed           [3m[38;5;246m&lt;dbl&gt;[39m[23m NA, NA, NA, NA, ~
+## $ new_confirmed_pc        [3m[38;5;246m&lt;dbl&gt;[39m[23m NA, NA, NA, NA, ~
+## $ confirmed_pc            [3m[38;5;246m&lt;dbl&gt;[39m[23m NA, NA, NA, NA, ~
+## $ new_deaths              [3m[38;5;246m&lt;dbl&gt;[39m[23m NA, NA, NA, NA, ~
+## $ new_deaths_pc           [3m[38;5;246m&lt;dbl&gt;[39m[23m NA, NA, NA, NA, ~
+## $ deaths_pc               [3m[38;5;246m&lt;dbl&gt;[39m[23m NA, NA, NA, NA, ~
+## $ ave_7d_new_confirmed    [3m[38;5;246m&lt;dbl&gt;[39m[23m NA, NA, NA, NA, ~
+## $ ave_7d_new_deaths       [3m[38;5;246m&lt;dbl&gt;[39m[23m NA, NA, NA, NA, ~
+## $ ave_7d_new_confirmed_pc [3m[38;5;246m&lt;dbl&gt;[39m[23m NA, NA, NA, NA, ~
+## $ ave_7d_new_deaths_pc    [3m[38;5;246m&lt;dbl&gt;[39m[23m NA, NA, NA, NA, ~</code></pre>
 </div>
 <div id="variable-definitions" class="section level2">
 <h2>Variable Definitions</h2>
-<pre class="r"><code>var_d &lt;- tidycovid19_variable_definitions %&gt;%
+<pre class="r"><code>var_definitions &lt;- tidycovid19_variable_definitions %&gt;%
   select(var_name, var_def)
 
-kable(var_d) %&gt;% 
+kable(var_definitions) %&gt;% 
   kableExtra::kable_styling() %&gt;%
   kableExtra::scroll_box(width = &quot;100%&quot;, height = &quot;300px&quot;)</code></pre>
 <div style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:300px; overflow-x: scroll; width:100%; ">
@@ -722,7 +722,7 @@ Date and time where data has been collected from authoritative sources
   labs(title = &quot;7-day rolling mean\nGlobal daily deaths&quot;, x = &quot;&quot;, y = &quot;&quot;)</code></pre>
 <pre><code>## Warning: Removed 1 row(s) containing missing values (geom_path).</code></pre>
 <pre><code>## Warning: Removed 7 row(s) containing missing values (geom_path).</code></pre>
-<p><img src="eda_covid19_files/figure-html/unnamed-chunk-89-1.png" width="672" /></p>
+<p><img src="eda_covid19_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
 </div>
 <div id="global-deaths" class="section level3">
 <h3>Global Deaths</h3>
@@ -732,7 +732,7 @@ Date and time where data has been collected from authoritative sources
   labs(title = &quot;7-day rolling mean\nGlobal daily deaths&quot;, x = &quot;&quot;, y = &quot;&quot;)</code></pre>
 <pre><code>## Warning: Removed 1 row(s) containing missing values (geom_path).</code></pre>
 <pre><code>## Warning: Removed 7 row(s) containing missing values (geom_path).</code></pre>
-<p><img src="eda_covid19_files/figure-html/unnamed-chunk-90-1.png" width="672" /></p>
+<p><img src="eda_covid19_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
 </div>
 </div>
 <div id="country-specific-numbers" class="section level2">

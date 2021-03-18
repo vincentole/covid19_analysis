@@ -39,14 +39,15 @@ df <- download_merged_data(cached = TRUE, silent = TRUE) %>%
   ) %>%
   ungroup()
 
-glimpse(df)
+glimpse(df, width = 50)
+
 ```
 ## Variable Definitions
 ```{r}
-var_d <- tidycovid19_variable_definitions %>%
+var_definitions <- tidycovid19_variable_definitions %>%
   select(var_name, var_def)
 
-kable(var_d) %>% 
+kable(var_definitions) %>% 
   kableExtra::kable_styling() %>%
   kableExtra::scroll_box(width = "100%", height = "300px")
 ```
