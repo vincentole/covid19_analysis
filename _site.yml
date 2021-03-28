@@ -5,8 +5,11 @@ navbar:
   left:
   - text: "Home"
     href: index.html
-  - text: "EDA"
-    href: eda_covid19.html
+  - text: "EDA Global"
+    href: eda_global.html
+  - text: "EDA Country"
+    href: eda_country.html
+    
 output:
   html_document:
     theme: cosmo
