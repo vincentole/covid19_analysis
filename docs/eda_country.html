@@ -249,7 +249,10 @@ $(document).ready(function () {
   <a href="index.html">Home</a>
 </li>
 <li>
-  <a href="eda_covid19.html">EDA</a>
+  <a href="eda_global.html">EDA Global</a>
+</li>
+<li>
+  <a href="eda_country.html">EDA Country</a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -307,7 +310,7 @@ library(naniar)</code></pre>
 
 ggplot(most_cases_abs, aes(x =total_confirmed, y = reorder(country, total_confirmed))) +
   geom_col()</code></pre>
-<p><img src="eda_country_files/figure-html/unnamed-chunk-55-1.png" width="672" /></p>
+<p><img src="eda_country_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
 <pre class="r"><code>most_cases_abs &lt;- df %&gt;%
   group_by(country) %&gt;%
   filter(!is.na(deaths)) %&gt;%
@@ -317,7 +320,7 @@ ggplot(most_cases_abs, aes(x =total_confirmed, y = reorder(country, total_confir
 
 ggplot(most_cases_abs, aes(x =total_deaths, y = reorder(country, total_deaths))) +
   geom_col()</code></pre>
-<p><img src="eda_country_files/figure-html/unnamed-chunk-55-2.png" width="672" /></p>
+<p><img src="eda_country_files/figure-html/unnamed-chunk-3-2.png" width="672" /></p>
 </div>
 <div id="relative" class="section level2">
 <h2>Relative</h2>
@@ -329,7 +332,7 @@ ggplot(most_cases_abs, aes(x =total_deaths, y = reorder(country, total_deaths)))
 
 ggplot(most_cases_rel, aes(x =total_confirmed_pc, y = reorder(country, total_confirmed_pc))) +
   geom_col()</code></pre>
-<p><img src="eda_country_files/figure-html/unnamed-chunk-56-1.png" width="672" /></p>
+<p><img src="eda_country_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
 <pre class="r"><code>most_deaths_rel &lt;- df %&gt;%
   group_by(country) %&gt;%
   filter(!is.na(deaths_pc)) %&gt;%
@@ -338,7 +341,7 @@ ggplot(most_cases_rel, aes(x =total_confirmed_pc, y = reorder(country, total_con
 
 ggplot(most_deaths_rel, aes(x =total_deaths_pc, y = reorder(country, total_deaths_pc))) +
   geom_col()</code></pre>
-<p><img src="eda_country_files/figure-html/unnamed-chunk-56-2.png" width="672" /></p>
+<p><img src="eda_country_files/figure-html/unnamed-chunk-4-2.png" width="672" /></p>
 </div>
 </div>
 <div id="china" class="section level1">
@@ -350,7 +353,7 @@ ggplot(most_deaths_rel, aes(x =total_deaths_pc, y = reorder(country, total_death
 ggplot(selection, aes(x = date, y = confirmed, color = country)) + 
   geom_line()</code></pre>
 <pre><code>## Warning: Removed 11 row(s) containing missing values (geom_path).</code></pre>
-<p><img src="eda_country_files/figure-html/unnamed-chunk-57-1.png" width="672" /></p>
+<p><img src="eda_country_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
 </div>
 
 
