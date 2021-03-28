@@ -1,19 +1,9 @@
----
-title: "Title EDA - Covid-19"
----
+# Data
 
-# Setup
-## Packages
-```{r, message = FALSE}
 library(tidyverse)
 library(tidycovid19)
-library(zoo)
-library(knitr)
-library(kableExtra)
-```
 
-## Data
-```{r}
+# Use downloaded data from tidycovid19
 df <- download_merged_data(cached = TRUE, silent = TRUE) %>%
   group_by(country) %>%
   mutate(
@@ -39,62 +29,19 @@ df <- download_merged_data(cached = TRUE, silent = TRUE) %>%
   ) %>%
   ungroup()
 
-glimpse(df, width = 50)
-
-```
-## Variable Definitions
-```{r}
-var_definitions <- tidycovid19_variable_definitions %>%
-  select(var_name, var_def)
-
-kable(var_definitions) %>% 
-  kableExtra::kable_styling() %>%
-  kableExtra::scroll_box(width = "100%", height = "300px")
-```
-
-
-# EDA - Exploratory Data Analysis
-
-## Global Numbers
-### Data
-```{r}
+# Make new df for global data for better na and sum handling
 global_df <- df %>%
   group_by(date) %>%
   summarize(
     global_confirmed = sum(confirmed, na.rm = TRUE), 
     global_deaths = sum(deaths, na.rm = TRUE),
-    ) %>%
+    global_soc_dist = sum(soc_dist, na.rm = TRUE),
+    global_mov_rest = sum(mov_rest, na.rm = TRUE),
+    global_lockdown = sum(lockdown, na.rm = TRUE)
+  ) %>%
   mutate(
     global_new_confirmed = global_confirmed - lag(global_confirmed),
     global_new_deaths = global_deaths - lag(global_deaths),
     global_ave_7d_new_deaths = rollmean(global_new_deaths, 7, na.pad=TRUE, align="right"),
     global_ave_7d_new_confirmed = rollmean(global_new_confirmed, 7, na.pad=TRUE, align="right")
   )
-
-
-```
-
-### Global Confirmed Cases
-```{r}
-ggplot(global_df, aes(x = date)) +
-  geom_line(aes(y = global_new_confirmed), alpha = 0.1) +
-  geom_line(aes(y = global_ave_7d_new_confirmed), color = "red") +
-  labs(title = "7-day rolling mean\nGlobal daily deaths", x = "", y = "")
-```
-
-### Global Deaths
-```{r}
-ggplot(global_df, aes(x = date)) +
-  geom_line(aes(y = global_new_deaths), alpha = 0.1) +
-  geom_line(aes(y = global_ave_7d_new_deaths), color = "red") +
-  labs(title = "7-day rolling mean\nGlobal daily deaths", x = "", y = "")
-```
-
-## Country Specific Numbers
-#high <- df %>%
-#  group_by(country) %>%
-  
-
-
-# Modeling
-

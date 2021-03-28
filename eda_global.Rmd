@@ -1,0 +1,174 @@
+---
+title: "EDA - Global"
+---
+
+# Setup
+## Packages
+```{r, message = FALSE}
+library(tidyverse)
+library(tidycovid19)
+library(zoo)
+library(knitr)
+library(kableExtra)
+library(naniar)
+```
+
+## Data
+Let's do some feature engineering and look at the data structure:
+```{r}
+df <- download_merged_data(cached = TRUE, silent = TRUE) %>%
+  group_by(country) %>%
+  mutate(
+    # New daily confirmed cases
+    new_confirmed = confirmed - lag(confirmed),
+    # New daily confirmed cases per capita
+    new_confirmed_pc = new_confirmed / population,
+    # Cum confirmed cases per capita
+    confirmed_pc = confirmed / population,
+    
+    # New daily deaths
+    new_deaths = deaths - lag(deaths),
+    # New daily deaths per capita
+    new_deaths_pc = new_deaths / population,
+    # Cum deaths per capita
+    deaths_pc = deaths / population,
+    
+    # 7 Day moving averages for confirmed, deaths, and per capita
+    ave_7d_new_confirmed = rollmean(new_confirmed, 7, na.pad=TRUE, align="right"),
+    ave_7d_new_deaths = rollmean(new_deaths, 7, na.pad=TRUE, align="right"),
+    ave_7d_new_confirmed_pc = rollmean(new_confirmed_pc, 7, na.pad=TRUE, align="right"),
+    ave_7d_new_deaths_pc = rollmean(new_deaths_pc, 7, na.pad=TRUE, align="right")
+  ) %>%
+  ungroup()
+
+glimpse(df, width = 100)
+
+```
+## Variable Definitions
+The package provides some definitions for the variables:
+```{r}
+var_definitions <- tidycovid19_variable_definitions %>%
+  select(var_name, var_def)
+
+kable(var_definitions) %>% 
+  kableExtra::kable_styling() %>%
+  kableExtra::scroll_box(width = "100%", height = "300px")
+```
+\
+
+# Missing values analysis
+```{r}
+vis_miss(df[,1:10])
+vis_miss(df[,11:20])
+vis_miss(df[,21:30])
+vis_miss(df[,31:40])
+vis_miss(df[,41:50])
+
+```
+\
+We can see that some variables have a substantial amount of values missing. When comparing countries, we should check the specific availability of the variable for the specific country.
+  
+The package hast variables that show numbers of reported measures. Some variables of interest that have only 11.47% missing data are the following:
+
+* `soc_dist`
+* `mov_rest`
+* `pub_health`
+* `gov_soc_econ`
+* `lockdown`
+
+Also of interest would be a time series of `total_tests`, `total_vaccinations`, `hosp_patients`, and `icu_patients`.
+Due to the large number of NA's, an interpretation might not be very meaningful.
+  
+Further analysis per country might provide better data.
+
+# EDA - Exploratory Data Analysis
+
+## Global Numbers
+Here a new `global_df` is generated for more control over the rolling mean and missing values.
+
+### Data
+```{r}
+global_df <- df %>%
+  group_by(date) %>%
+  summarize(
+    global_confirmed = sum(confirmed, na.rm = TRUE), 
+    global_deaths = sum(deaths, na.rm = TRUE),
+    global_soc_dist = sum(soc_dist, na.rm = TRUE),
+    global_mov_rest = sum(mov_rest, na.rm = TRUE),
+    global_lockdown = sum(lockdown, na.rm = TRUE)
+    ) %>%
+  mutate(
+    global_new_confirmed = global_confirmed - lag(global_confirmed),
+    global_new_deaths = global_deaths - lag(global_deaths),
+    global_ave_7d_new_deaths = rollmean(global_new_deaths, 7, na.pad=TRUE, align="right"),
+    global_ave_7d_new_confirmed = rollmean(global_new_confirmed, 7, na.pad=TRUE, align="right")
+  )
+
+glimpse(global_df)
+```
+
+### Global Confirmed Cases
+```{r}
+ggplot(global_df, aes(x = date)) +
+  geom_col(aes(y = global_confirmed), alpha = 0.3) +
+  labs(title = "Global total confirmed cases", x = "", y = "")
+  
+ggplot(global_df, aes(x = date)) +
+  geom_col(aes(y = global_new_confirmed), alpha = 0.3) +
+  geom_line(aes(y = global_ave_7d_new_confirmed), color = "red") +
+  labs(title = "7-day rolling mean\nGlobal daily cases", x = "", y = "") +
+  ylim(0,800000)
+```
+
+### Global Deaths
+```{r}
+ggplot(global_df, aes(x = date)) +
+  geom_col(aes(y = global_deaths), alpha = 0.3) +
+  labs(title = "Global total deaths", x = "", y = "")
+
+ggplot(global_df, aes(x = date)) +
+  geom_col(aes(y = global_new_deaths), alpha = 0.3) +
+  geom_line(aes(y = global_ave_7d_new_deaths), color = "red") +
+  labs(title = "7-day rolling mean\nGlobal daily deaths", x = "", y = "")
+```
+\
+
+### Other Global Variables
+```{r}
+# Number of tests, vaccinations, and patients
+ggplot(df, aes(x = date, y = total_tests), group = date) +
+  geom_col() +
+  labs(title = "Global total tests")
+
+ggplot(df, aes(x = date, y = total_vaccinations), group = date) +
+  geom_col() +
+  labs(title = "Global total vaccinations")
+
+ggplot(df, aes(x = date, y = hosp_patients), group = date) +
+  geom_col() +
+  labs(title = "Global total hospital patients")
+
+
+ggplot(df, aes(x = date, y = icu_patients), group = date) +
+  geom_col() +
+  labs(title = "Global total icu patients")
+
+# Number of measures reported
+ggplot(global_df, aes(x = date, y = global_soc_dist)) +
+  geom_col() +
+  labs(title = "Global total social distancing measures")
+
+ggplot(df, aes(x = date, y = mov_rest), group = date) +
+  geom_col() +
+  labs(title = "Global total movement restriction measures")
+
+ggplot(df, aes(x = date, y = pub_health), group = date) +
+  geom_col() +
+  labs(title = "Global total public health measures")
+
+ggplot(global_df, aes(x = date, y = global_lockdown), group = date) +
+  geom_col() +
+  labs(title = "Global total lockdown measures")
+
+```
+

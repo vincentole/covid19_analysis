@@ -1,0 +1,84 @@
+---
+title: "EDA - Country"
+output: 
+  html_document:
+    code_folding: show
+---
+
+# Setup
+## Packages
+Necessary packages are loaded.
+```{r, message = FALSE, class.source = 'fold-hide'}
+library(tidyverse)
+library(tidycovid19)
+library(zoo)
+library(knitr)
+library(kableExtra)
+library(naniar)
+```
+
+## Load Data
+Here we load the data `df` and `global_df` from EDA - Global.  
+```{r}
+source("data.R", local = knitr::knit_global())
+```
+
+# Most affected countries
+
+## Absolute
+```{r}
+most_cases_abs <- df %>%
+  group_by(country) %>%
+  filter(!is.na(confirmed)) %>%
+  summarize(total_confirmed = max(confirmed, na.rm = TRUE)) %>%
+  top_n(30, total_confirmed)  
+
+
+ggplot(most_cases_abs, aes(x =total_confirmed, y = reorder(country, total_confirmed))) +
+  geom_col()
+
+most_cases_abs <- df %>%
+  group_by(country) %>%
+  filter(!is.na(deaths)) %>%
+  summarize(total_deaths = max(deaths, na.rm = TRUE)) %>%
+  top_n(30, total_deaths)  
+
+
+ggplot(most_cases_abs, aes(x =total_deaths, y = reorder(country, total_deaths))) +
+  geom_col()
+
+```
+
+
+## Relative
+```{r}
+most_cases_rel <- df %>%
+  group_by(country) %>%
+  filter(!is.na(confirmed_pc)) %>%
+  summarize(total_confirmed_pc = max(confirmed_pc, na.rm = TRUE)) %>%
+  top_n(30, total_confirmed_pc) 
+
+ggplot(most_cases_rel, aes(x =total_confirmed_pc, y = reorder(country, total_confirmed_pc))) +
+  geom_col()
+
+most_deaths_rel <- df %>%
+  group_by(country) %>%
+  filter(!is.na(deaths_pc)) %>%
+  summarize(total_deaths_pc = max(deaths_pc, na.rm = TRUE)) %>%
+  top_n(30, total_deaths_pc)  
+
+ggplot(most_deaths_rel, aes(x =total_deaths_pc, y = reorder(country, total_deaths_pc))) +
+  geom_col()
+```
+
+
+# China
+Let's compare China, where the outbreak started, with some other countries.
+```{r}
+selection <- df %>%
+  filter(country == c("China", "Germany"))
+
+ggplot(selection, aes(x = date, y = confirmed, color = country)) + 
+  geom_line()
+```
+

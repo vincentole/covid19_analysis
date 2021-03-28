@@ -11,7 +11,7 @@
 
 
 
-<title>Title EDA - Covid-19</title>
+<title>EDA - Global</title>
 
 <script src="site_libs/header-attrs-2.7/header-attrs.js"></script>
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
@@ -261,7 +261,7 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">Title EDA - Covid-19</h1>
+<h1 class="title toc-ignore">EDA - Global</h1>
 
 </div>
 
@@ -696,21 +696,31 @@ Date and time where data has been collected from authoritative sources
 </tbody>
 </table>
 </div>
+<p><br />
+</p>
 </div>
 </div>
 <div id="missing-values-analysis" class="section level1">
 <h1>Missing values analysis</h1>
 <pre class="r"><code>vis_miss(df[,1:10])</code></pre>
-<p><img src="eda_covid19_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+<p><img src="eda_global_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
 <pre class="r"><code>vis_miss(df[,11:20])</code></pre>
-<p><img src="eda_covid19_files/figure-html/unnamed-chunk-4-2.png" width="672" /></p>
+<p><img src="eda_global_files/figure-html/unnamed-chunk-4-2.png" width="672" /></p>
 <pre class="r"><code>vis_miss(df[,21:30])</code></pre>
-<p><img src="eda_covid19_files/figure-html/unnamed-chunk-4-3.png" width="672" /></p>
+<p><img src="eda_global_files/figure-html/unnamed-chunk-4-3.png" width="672" /></p>
 <pre class="r"><code>vis_miss(df[,31:40])</code></pre>
-<p><img src="eda_covid19_files/figure-html/unnamed-chunk-4-4.png" width="672" /></p>
+<p><img src="eda_global_files/figure-html/unnamed-chunk-4-4.png" width="672" /></p>
 <pre class="r"><code>vis_miss(df[,41:50])</code></pre>
-<p><img src="eda_covid19_files/figure-html/unnamed-chunk-4-5.png" width="672" />  We can see that some variables have a substantial amount of values missing. When comparing countries, we should check the specific availability of the variable for the specific country.</p>
-<p>The package hast variables that show numbers of reported measures. Some variables of interest that have only 11.47% missing data are the following: - <code>soc_dist</code> - <code>mov_rest</code> - <code>pub_health</code> - <code>gov_soc_econ</code> - <code>lockdown</code></p>
+<p><img src="eda_global_files/figure-html/unnamed-chunk-4-5.png" width="672" /><br />
+We can see that some variables have a substantial amount of values missing. When comparing countries, we should check the specific availability of the variable for the specific country.</p>
+<p>The package hast variables that show numbers of reported measures. Some variables of interest that have only 11.47% missing data are the following:</p>
+<ul>
+<li><code>soc_dist</code></li>
+<li><code>mov_rest</code></li>
+<li><code>pub_health</code></li>
+<li><code>gov_soc_econ</code></li>
+<li><code>lockdown</code></li>
+</ul>
 <p>Also of interest would be a time series of <code>total_tests</code>, <code>total_vaccinations</code>, <code>hosp_patients</code>, and <code>icu_patients</code>. Due to the large number of NA’s, an interpretation might not be very meaningful.</p>
 <p>Further analysis per country might provide better data.</p>
 </div>
@@ -718,7 +728,7 @@ Date and time where data has been collected from authoritative sources
 <h1>EDA - Exploratory Data Analysis</h1>
 <div id="global-numbers" class="section level2">
 <h2>Global Numbers</h2>
-<p>Here a new <code>global_df</code> is generated for more control over the rolling mean.</p>
+<p>Here a new <code>global_df</code> is generated for more control over the rolling mean and missing values.</p>
 <div id="data-1" class="section level3">
 <h3>Data</h3>
 <pre class="r"><code>global_df &lt;- df %&gt;%
@@ -726,7 +736,9 @@ Date and time where data has been collected from authoritative sources
   summarize(
     global_confirmed = sum(confirmed, na.rm = TRUE), 
     global_deaths = sum(deaths, na.rm = TRUE),
-    global_soc_dist = sum(soc_dist, na.rm = TRUE)
+    global_soc_dist = sum(soc_dist, na.rm = TRUE),
+    global_mov_rest = sum(mov_rest, na.rm = TRUE),
+    global_lockdown = sum(lockdown, na.rm = TRUE)
     ) %&gt;%
   mutate(
     global_new_confirmed = global_confirmed - lag(global_confirmed),
@@ -737,11 +749,13 @@ Date and time where data has been collected from authoritative sources
 
 glimpse(global_df)</code></pre>
 <pre><code>## Rows: 452
-## Columns: 8
+## Columns: 10
 ## $ date                        &lt;date&gt; 2019-12-31, 2020-01-01, 2020-01-02, 2020-~
 ## $ global_confirmed            &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, ~
 ## $ global_deaths               &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, ~
 ## $ global_soc_dist             &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, ~
+## $ global_mov_rest             &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, ~
+## $ global_lockdown             &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, ~
 ## $ global_new_confirmed        &lt;dbl&gt; NA, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,~
 ## $ global_new_deaths           &lt;dbl&gt; NA, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,~
 ## $ global_ave_7d_new_deaths    &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, 0.000000, 0.00~
@@ -752,7 +766,7 @@ glimpse(global_df)</code></pre>
 <pre class="r"><code>ggplot(global_df, aes(x = date)) +
   geom_col(aes(y = global_confirmed), alpha = 0.3) +
   labs(title = &quot;Global total confirmed cases&quot;, x = &quot;&quot;, y = &quot;&quot;)</code></pre>
-<p><img src="eda_covid19_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+<p><img src="eda_global_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
 <pre class="r"><code>ggplot(global_df, aes(x = date)) +
   geom_col(aes(y = global_new_confirmed), alpha = 0.3) +
   geom_line(aes(y = global_ave_7d_new_confirmed), color = &quot;red&quot;) +
@@ -760,62 +774,65 @@ glimpse(global_df)</code></pre>
   ylim(0,800000)</code></pre>
 <pre><code>## Warning: Removed 4 rows containing missing values (position_stack).</code></pre>
 <pre><code>## Warning: Removed 7 row(s) containing missing values (geom_path).</code></pre>
-<p><img src="eda_covid19_files/figure-html/unnamed-chunk-6-2.png" width="672" /></p>
+<p><img src="eda_global_files/figure-html/unnamed-chunk-6-2.png" width="672" /></p>
 </div>
 <div id="global-deaths" class="section level3">
 <h3>Global Deaths</h3>
 <pre class="r"><code>ggplot(global_df, aes(x = date)) +
   geom_col(aes(y = global_deaths), alpha = 0.3) +
   labs(title = &quot;Global total deaths&quot;, x = &quot;&quot;, y = &quot;&quot;)</code></pre>
-<p><img src="eda_covid19_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+<p><img src="eda_global_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
 <pre class="r"><code>ggplot(global_df, aes(x = date)) +
   geom_col(aes(y = global_new_deaths), alpha = 0.3) +
   geom_line(aes(y = global_ave_7d_new_deaths), color = &quot;red&quot;) +
   labs(title = &quot;7-day rolling mean\nGlobal daily deaths&quot;, x = &quot;&quot;, y = &quot;&quot;)</code></pre>
 <pre><code>## Warning: Removed 1 rows containing missing values (position_stack).</code></pre>
 <pre><code>## Warning: Removed 7 row(s) containing missing values (geom_path).</code></pre>
-<p><img src="eda_covid19_files/figure-html/unnamed-chunk-7-2.png" width="672" />  ### Other Global Variables</p>
+<p><img src="eda_global_files/figure-html/unnamed-chunk-7-2.png" width="672" /><br />
+</p>
+</div>
+<div id="other-global-variables" class="section level3">
+<h3>Other Global Variables</h3>
 <pre class="r"><code># Number of tests, vaccinations, and patients
 ggplot(df, aes(x = date, y = total_tests), group = date) +
   geom_col() +
   labs(title = &quot;Global total tests&quot;)</code></pre>
 <pre><code>## Warning: Removed 54451 rows containing missing values (position_stack).</code></pre>
-<p><img src="eda_covid19_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+<p><img src="eda_global_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
 <pre class="r"><code>ggplot(df, aes(x = date, y = total_vaccinations), group = date) +
   geom_col() +
   labs(title = &quot;Global total vaccinations&quot;)</code></pre>
 <pre><code>## Warning: Removed 84649 rows containing missing values (position_stack).</code></pre>
-<p><img src="eda_covid19_files/figure-html/unnamed-chunk-8-2.png" width="672" /></p>
+<p><img src="eda_global_files/figure-html/unnamed-chunk-8-2.png" width="672" /></p>
 <pre class="r"><code>ggplot(df, aes(x = date, y = hosp_patients), group = date) +
   geom_col() +
   labs(title = &quot;Global total hospital patients&quot;)</code></pre>
 <pre><code>## Warning: Removed 79676 rows containing missing values (position_stack).</code></pre>
-<p><img src="eda_covid19_files/figure-html/unnamed-chunk-8-3.png" width="672" /></p>
+<p><img src="eda_global_files/figure-html/unnamed-chunk-8-3.png" width="672" /></p>
 <pre class="r"><code>ggplot(df, aes(x = date, y = icu_patients), group = date) +
   geom_col() +
   labs(title = &quot;Global total icu patients&quot;)</code></pre>
 <pre><code>## Warning: Removed 81287 rows containing missing values (position_stack).</code></pre>
-<p><img src="eda_covid19_files/figure-html/unnamed-chunk-8-4.png" width="672" /></p>
+<p><img src="eda_global_files/figure-html/unnamed-chunk-8-4.png" width="672" /></p>
 <pre class="r"><code># Number of measures reported
 ggplot(global_df, aes(x = date, y = global_soc_dist)) +
   geom_col() +
   labs(title = &quot;Global total social distancing measures&quot;)</code></pre>
-<p><img src="eda_covid19_files/figure-html/unnamed-chunk-8-5.png" width="672" /></p>
+<p><img src="eda_global_files/figure-html/unnamed-chunk-8-5.png" width="672" /></p>
 <pre class="r"><code>ggplot(df, aes(x = date, y = mov_rest), group = date) +
   geom_col() +
   labs(title = &quot;Global total movement restriction measures&quot;)</code></pre>
 <pre><code>## Warning: Removed 10257 rows containing missing values (position_stack).</code></pre>
-<p><img src="eda_covid19_files/figure-html/unnamed-chunk-8-6.png" width="672" /></p>
+<p><img src="eda_global_files/figure-html/unnamed-chunk-8-6.png" width="672" /></p>
 <pre class="r"><code>ggplot(df, aes(x = date, y = pub_health), group = date) +
   geom_col() +
   labs(title = &quot;Global total public health measures&quot;)</code></pre>
 <pre><code>## Warning: Removed 10257 rows containing missing values (position_stack).</code></pre>
-<p><img src="eda_covid19_files/figure-html/unnamed-chunk-8-7.png" width="672" /></p>
-<pre class="r"><code>ggplot(df, aes(x = date, y = lockdown), group = date) +
+<p><img src="eda_global_files/figure-html/unnamed-chunk-8-7.png" width="672" /></p>
+<pre class="r"><code>ggplot(global_df, aes(x = date, y = global_lockdown), group = date) +
   geom_col() +
   labs(title = &quot;Global total lockdown measures&quot;)</code></pre>
-<pre><code>## Warning: Removed 10257 rows containing missing values (position_stack).</code></pre>
-<p><img src="eda_covid19_files/figure-html/unnamed-chunk-8-8.png" width="672" /></p>
+<p><img src="eda_global_files/figure-html/unnamed-chunk-8-8.png" width="672" /></p>
 </div>
 </div>
 </div>
